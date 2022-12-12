@@ -1,8 +1,5 @@
 
-
-#include <iostream>
-#include <string>
-using namespace std;
+#include"minify.h"
 
 string minify(string in) {
     string out = "";
