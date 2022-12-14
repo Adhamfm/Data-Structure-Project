@@ -234,6 +234,7 @@ void compress(string inputFile)
 	clock_t stop_time = clock();	//stop timer
 	if (remove(filename.c_str()) != 0)		//delete the original uncompressed file
 		perror("Error deleteing the compressed file:\t");
+	
 }
 
 /*int main()
