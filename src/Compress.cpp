@@ -234,12 +234,10 @@ void compress(string inputFile)
 	clock_t stop_time = clock();	//stop timer
 	if (remove(filename.c_str()) != 0)		//delete the original uncompressed file
 		perror("Error deleteing the compressed file:\t");
-	//cout << "\n\n*********************************************File Compressed Successfully! :-)*********************************************\n\n";
-	//cout<<"Time taken to Compress:\t"<<double(stop_time-start_time)/CLOCKS_PER_SEC<<" seconds\n\n"; //show time taken to compress
 }
 
-int main()
+/*int main()
 {
 	string s = "sample.txt";
 	compress(s);
-}
+}*/
