@@ -75,6 +75,7 @@ struct Node* extractMin(vector <Node*> &MinHeap) {
 	MinHeap[0] = MinHeap.back();
 	MinHeap.pop_back();
 	Heapify(MinHeap, 0, MinHeap.size() - 1);
+	cout << minimum -> character << " : " << minimum->freq << "\n";
 	return minimum;
 }
 // Insertion
