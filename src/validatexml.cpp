@@ -8,9 +8,7 @@
 #include <cstring>
 #include <stdio.h>
 
-
 using namespace std;
-
 
 string reversestringrec(string str) {
     while (str.length() >= 0 && str.length() <= 20) {
@@ -47,8 +45,8 @@ validatexml::validatexml() {
 void validatexml::  check_xml(string string){
 
 
-
 		std::ifstream myfile (string);
+		std::ofstream filexml();
 
 		//check tag number and shape
 		while ( myfile ) {
@@ -94,10 +92,11 @@ void validatexml::  check_xml(string string){
 								input.push(myline[k]);
 								counter += 1 ;
 							}
+							//counter in stack for the current length of the tag
 							input2.push(counter);
 						}
 						//close tag
-						else if(mychar2 == '/' && myline[j-1] == '<'){
+						else if(mychar2 == '/' && myline[j-1] == '<' && !input2.empty()) {
 							int cnt = input2.top();
 							input2.pop();
 							//forming the close tag name
@@ -106,7 +105,7 @@ void validatexml::  check_xml(string string){
 							}
 							cout << closetag<<endl;
 							for (int m = j+1,n=2 ;n < cnt + 2;m++,n++){
-								if( myline[linelen-n] == input.top()){
+								if( myline[linelen-n] == input.top() ){
 									//forming the open tag name in variable tag
 									opentag += input.top();
 									input.pop();
@@ -121,6 +120,9 @@ void validatexml::  check_xml(string string){
 									input.pop();
 									mark &= false;
 									cout << "error in line: " << lineNum << endl;
+									//missing tag
+									cout << closetag;
+
 								}
 							}
 						//cout the name of the tag
