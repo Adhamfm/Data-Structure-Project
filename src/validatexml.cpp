@@ -54,7 +54,7 @@ void copyFile(string sourceFileName, string destinationFileName) {
     sourceFile.close();
     destinationFile.close();
 
-    std::cout << "File copied successfully!" << std::endl;
+  
 }
 
 void validatexml::  check_xml(string string){
