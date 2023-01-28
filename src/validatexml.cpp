@@ -36,17 +36,36 @@ int lineNum=1;
 //to avoid the initial value of false
 bool mark = true;
 string opentag, closetag;
+int openN=0 , closeN=0;
+bool flag = false;
 
 validatexml::validatexml() {
 
 	// TODO Auto-generated constructor stub
 }
 
+
+void copyFile(string sourceFileName, string destinationFileName) {
+    std::ifstream sourceFile(sourceFileName);
+    std::ofstream destinationFile(destinationFileName);
+
+    destinationFile << sourceFile.rdbuf();
+
+    sourceFile.close();
+    destinationFile.close();
+
+    std::cout << "File copied successfully!" << std::endl;
+}
+
 void validatexml::  check_xml(string string){
 
 
 		std::ifstream myfile (string);
-		std::ofstream filexml();
+		std::ofstream filexml("corrected.xml");
+
+		copyFile("sample.xml","corrected.xml");
+
+
 
 		//check tag number and shape
 		while ( myfile ) {
@@ -88,6 +107,7 @@ void validatexml::  check_xml(string string){
 						mychar2 = myline[j];
 						//open tag
 						if (mychar2 == '<' && myline[j+1] != '/'){
+							openN++;
 							for(int k = j+1 ; myline[k] != '>' ; k++){
 								input.push(myline[k]);
 								counter += 1 ;
@@ -97,10 +117,11 @@ void validatexml::  check_xml(string string){
 						}
 						//close tag
 						else if(mychar2 == '/' && myline[j-1] == '<' && !input2.empty()) {
+							closeN++;
 							int cnt = input2.top();
 							input2.pop();
 							//forming the close tag name
-							for (int v = j+1 ; myline[v] != '>' ; v++){
+							for (int v = j+1 ; myline[v] != '>' ; v++) {
 								closetag += myline[v];
 							}
 							cout << closetag<<endl;
@@ -121,7 +142,7 @@ void validatexml::  check_xml(string string){
 									mark &= false;
 									cout << "error in line: " << lineNum << endl;
 									//missing tag
-									cout << closetag;
+									cout << closetag << endl;
 
 								}
 							}
@@ -130,6 +151,14 @@ void validatexml::  check_xml(string string){
 					}
 					}
 					lineNum += 1 ;
+                    }
+                    if (openN>closeN){
+                    	cout << "missing closetag"<<endl;
+
+                    }
+                    else{
+                    	cout << "missing opentag" <<endl;
+
                     }
                     /*if (reversestringrec(opentag) == reversestringrec(closetag)){
                     	cout << "no tag errors"<<endl;
