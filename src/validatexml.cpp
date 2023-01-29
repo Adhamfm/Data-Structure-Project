@@ -10,10 +10,12 @@
 
 using namespace std;
 
+
+//reversing string recursively
 string reversestringrec(string str) {
     while (str.length() >= 0 && str.length() <= 20) {
         if (str.length() == 1) {
-            return str;
+        	return str;
         }
         else {
             return reversestringrec(str.substr(1, str.length())) + str.at(0);
@@ -21,6 +23,10 @@ string reversestringrec(string str) {
     }
     return "invalid input string";
 }
+
+
+//changing filexml content
+
 
 
 std::stack<std::string> str;
@@ -38,6 +44,12 @@ bool mark = true;
 string opentag, closetag;
 int openN=0 , closeN=0;
 bool flag = false;
+//file correcting variables
+string filename;
+string text;
+int line_number;
+vector<string> lines;
+string line;
 
 validatexml::validatexml() {
 
@@ -54,14 +66,14 @@ void copyFile(string sourceFileName, string destinationFileName) {
     sourceFile.close();
     destinationFile.close();
 
-  
+
 }
 
 void validatexml::  check_xml(string string){
 
 
-		std::ifstream myfile (string);
-		std::ofstream filexml("corrected.xml");
+		std::fstream myfile (string);
+		std::ofstream filexml("corrected.txt");
 
 		copyFile("sample.xml","corrected.xml");
 
@@ -121,7 +133,7 @@ void validatexml::  check_xml(string string){
 							int cnt = input2.top();
 							input2.pop();
 							//forming the close tag name
-							for (int v = j+1 ; myline[v] != '>' ; v++) {
+							for (int v = j+1 ; myline[v] != '>' ; v++){
 								closetag += myline[v];
 							}
 							cout << closetag<<endl;
@@ -177,16 +189,65 @@ void validatexml::  check_xml(string string){
 					}
 					else cout << "error in stack"<< endl;
 
-
 					//printing the total number of lines in the file
 					//cout << lineNum<<endl;
 //return "Tree";
 }
+	
+	getline(cin,filename);
+
+	getline(cin, text);
+
+	cin >> line_number;
+
+	fstream read_file;
+	read_file.open(filename);
+
+	if(read_file.fail()){
+		cout<<"error in opening file to read"<< endl;
+	}
+
+
+	while(getline(read_file,line)){
+		lines.push_back(line);
+	}
+
+	read_file.close();
+
+	if (line_number > lines.size())
+	{
+		 cout << "Line " << line_number;
+		 cout << " not in file." << endl;
+
+		 // Inform user how many lines ARE in the file as part of the error message
+		 cout << "File has " << lines.size();
+		 cout << " lines." << endl;
+
+	 }
+
+
+	ofstream write_file;
+	write_file.open(filename);
+
+	if(write_file.fail()){
+	cout << "error in corrected.xml"<<endl;
+	}
+
+
+	line_number --;
+
+	for (int x = 0; x < lines.size(); x++)
+	 {
+	  // If the current index is not the line number we wish to replace, write
+	// the line back to the file, OTHERWISE if it IS the line we want to
+	// replace write the replacement text back to the file instead.
+	if (x != line_number)
+	write_file << lines[x] << endl;
+	else
+	write_file << text << endl;
+	}
+	write_file.close();
 }
-
-
-
-
 
 
 validatexml::~validatexml() {
