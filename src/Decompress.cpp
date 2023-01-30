@@ -112,8 +112,8 @@ void decompress(string inputFile) {
 		perror("Error deleting the compressed file: \t");
 }
 
-int main()
+/*int main()
 {
 	string s = "sample.txt.huf";
 	decompress(s);
-}
+}*/
