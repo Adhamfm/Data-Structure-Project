@@ -12,30 +12,13 @@
 using namespace std;
 
 
-//reversing string recursively
-string reversestringrec(string str) {
-    while (str.length() >= 0 && str.length() <= 20) {
-        if (str.length() == 1) {
-        	return str;
-        }
-        else {
-            return reversestringrec(str.substr(1, str.length())) + str.at(0);
-        }
-    }
-    return "invalid input string";
-}
-
-
-//changing filexml content
-
-
-
 std::stack<std::string> str;
 std::string myline;
 //stack of char named input
 stack<char> input;
 stack <int> input2;
 
+bool check = false;
 char chars[]=" ";
 char chars2[]="/<> ";
 char mychar,mychar2;
@@ -51,9 +34,45 @@ string text;
 vector<string> lines;
 queue<int> buffer;
 int i=0;
+int c = 0;
 queue<string> opentag_buffer,closedtag_buffer;
 
 
+//copy file
+
+void copyFile(string sourceFileName, string destinationFileName) {
+    std::ifstream sourceFile(sourceFileName);
+    std::ofstream destinationFile(destinationFileName);
+
+    destinationFile << sourceFile.rdbuf();
+
+    sourceFile.close();
+    destinationFile.close();
+
+
+}
+
+//multi-errror iteration
+void validatexml::intergration(string input , string output) {
+	check_xml(input);
+	correct_xml(input, output);
+	cout << file_status << endl;
+	copyFile(output , input);
+}
+
+
+//reversing string recursively
+string reversestringrec(string str) {
+    while (str.length() >= 0 && str.length() <= 20) {
+        if (str.length() == 1) {
+        	return str;
+        }
+        else {
+            return reversestringrec(str.substr(1, str.length())) + str.at(0);
+        }
+    }
+    return "invalid input string";
+}
 
 
 
@@ -62,10 +81,10 @@ validatexml::validatexml() {
 	// TODO Auto-generated constructor stub
 }
 
-void validatexml::  check_xml(string string){
+void validatexml::  check_xml(string stringfile){
 
 		//check tag number and shape
-		while ( read_file ) {
+		while (read_file) {
 			//read char from the file stream
 			mychar = read_file.get();
 			if(mychar=='<'){
@@ -89,7 +108,7 @@ void validatexml::  check_xml(string string){
 
 		//check tag name
 		//open file identified by file name as an argument
-		read_file.open("sample.xml");
+		read_file.open(stringfile);
 			//return true if the file is opened
 			if( read_file.is_open() ) {
 				//.good() return true if the file has no errors
@@ -172,16 +191,18 @@ void validatexml::  check_xml(string string){
 
                     	cout << "missing closetag"<<endl;
 
-                    	while(!buffer.empty()){
+                    	//while(!buffer.empty()){
                     	 cout << "error in line: " << buffer.front()<< endl;
                     	 buffer.pop();
-                    	}
+                    	//}
                     	 cout<< "the tag is "<<closedtag_buffer.front()<<endl;
 
 
                     	 status=missing_close;
                     	 tag=closedtag_buffer.front();
                     	 line_number=buffer.front();
+                    	 file_status = 1;
+
                     }
                     else if (openN>=closeN && mark==false){
                     	cout << "missing opentag" <<endl;
@@ -190,10 +211,12 @@ void validatexml::  check_xml(string string){
                     	status= missing_open;
                     	tag=opentag_buffer.front();
                     	line_number=buffer.front();
+                    	file_status = 1;
 
                     }
                     else{
                     	cout << "No error"<<endl;
+                    	file_status = 0;
                     }
                     /*if (reversestringrec(opentag) == reversestringrec(closetag)){
                     	cout << "no tag errors"<<endl;
@@ -204,10 +227,11 @@ void validatexml::  check_xml(string string){
 
 					if (mark == true){
 						cout << "tags are consistent"<< endl;
+
 					}
 					else{
 						cout << "tags are inconsistent" << endl;
-						file_status=No_Error;
+
 					}
 /*
 					if (input.empty()==true){
