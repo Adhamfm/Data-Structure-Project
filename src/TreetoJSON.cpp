@@ -6,20 +6,61 @@
 
 using namespace std;
 
-void TreetoJSON::dfs(NodeTree *node){
+void TreetoJSON::dfs(NodeTree *node)
+{
     cout << node->getKey() << " " ; // print the current node's key and value
     if (node->getValue() != "") cout<< ": " << node->getValue().substr(1);
     cout << "\n";
-    for (NodeTree *child : node->getChildren()) {
+    for (NodeTree *child : node->getChildren())
+    {
         dfs(child); // recursively call dfs on each child
     }
 }
 
-bool TreetoJSON::isLeaf(NodeTree *node){
+//most followers (influencer)
+void TreetoJSON::mostFollower(NodeTree *node)
+{
+    if (node->getKey()=="name") currentname=node->getValue();
+    if (node->getKey()=="followers")
+    {
+        if (followers < node->getChildren().size())
+        {
+            followers=node->getChildren().size();
+            influencer = currentname;
+        }
+    }
+    for (NodeTree *child : node->getChildren())
+    {
+        mostFollower(child); // recursively call dfs on each child
+    }
+}
+
+//most active
+void TreetoJSON::mostActive(NodeTree *node)
+{
+    if (node->getKey()=="name") currentname=node->getValue();
+    if (node->getKey()=="posts")
+    {
+        if (posts < node->getChildren().size())
+        {
+            posts=node->getChildren().size();
+            active = currentname;
+        }
+    }
+
+    for (NodeTree *child : node->getChildren())
+    {
+        mostActive(child); // recursively call dfs on each child
+    }
+}
+
+bool TreetoJSON::isLeaf(NodeTree *node)
+{
     return node->getChildren().empty();
 }
 
-void TreetoJSON::treeToJson(NodeTree *node){
+void TreetoJSON::treeToJson(NodeTree *node)
+{
     int comma=0;
     int grandcomma=0;
     if (!isLeaf(node))
@@ -30,7 +71,7 @@ void TreetoJSON::treeToJson(NodeTree *node){
             vector<NodeTree*>children = node->getChildren();
             json += "{\"" + children[0] ->getKey()+ "\": "; // get a copy of the key
             comma = children.size()-1;
-                json += "[";
+            json += "[";
             for (NodeTree *child : children)
             {
                 if (child->hasMultipleChildrenWithSameKey()) treeToJson(child);
@@ -43,24 +84,27 @@ void TreetoJSON::treeToJson(NodeTree *node){
                     if (grandchild->hasMultipleChildrenWithSameKey()) treeToJson(grandchild);
                     json += "\""+ grandchild->getKey() +"\":\"";
                     if(grandchild->getValue()!= "")
-                    json +=grandchild->getValue().substr(1)+ "\"";
-                    if (grandcomma>0){
+                        json +=grandchild->getValue().substr(1)+ "\"";
+                    if (grandcomma>0)
+                    {
                         json +=",";
                         grandcomma--;
                     }
                 }
-            json+="}";
-                if (comma >0){
+                json+="}";
+                if (comma >0)
+                {
                     json+=",";
                     comma--;
                 }
             }
-                json +="]}";
+            json +="]}";
         }
 
     }
 
-    if (!node->hasMultipleChildrenWithSameKey()){
+    if (!node->hasMultipleChildrenWithSameKey())
+    {
 
         for (NodeTree *child : node->getChildren())
         {
@@ -69,11 +113,12 @@ void TreetoJSON::treeToJson(NodeTree *node){
         }
     }
     else
-    json+="}";
+        json+="}";
     this ->json = json;
 }
 
-string TreetoJSON::getJSON(){
+string TreetoJSON::getJSON()
+{
     return this->json;
 }
 
@@ -139,3 +184,24 @@ NodeTree TreetoJSON::convertxml(string xml)
     //NodeTree* ptr = root.getChildren()[0];
     return root;
 }
+
+void TreetoJSON::BFS(NodeTree *root)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+    queue<NodeTree*> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        NodeTree *node = q.front();
+        q.pop();
+        std::cout << node->getData() << std::endl;
+        for (NodeTree *child : node->getChildren())
+        {
+            q.push(child);
+        }
+    }
+}
+
