@@ -24,13 +24,16 @@ using namespace std;
 
 int main(){
 	validatexml xml1;
+	string input="sample.xml";
+	string output="corrected.xml";
 
-string input="sample.xml";
-string output="corrected.xml";
 
-	xml1.check_xml(input);
 
-	xml1.correct_xml( input, output);
+	//xml1.check_xml(input);
+
+	//xml1.correct_xml( input, output);
+
+	xml1.intergration(input , output);
 
 	cout <<"finish";
 
@@ -38,6 +41,5 @@ string output="corrected.xml";
 
 
 }
-
 
 
