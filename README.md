@@ -8,4 +8,13 @@
 3. For compressing XML files you press on 'Compress', and then browse to the xml file you wish to compress and double click on it.
 4. For decompressing the compressed XML file you click on 'Decompress' and choose a compressed file.
 5. To minify XML text you click Open File and choose a file you wish to minify and then push 'Minify' button.
-6. Correction of xml files
+6. Correction of xml files, click on 'Validate and Correct' and choose a xml file, the corrected xml content will be displayed in the text windows.
+7. To make a graph png of a xml click on 'Graph visualize'.
+
+
+
+# Team Members
+1. Mustafa Sayed Al-Said Mohamed          1900361
+2. Adham Tarek Fathy Ali                  1900028
+3. Mustafa Mahmoud Mohamed Shebl          1900006
+4. Kaream Adel Esmael                     1900375
