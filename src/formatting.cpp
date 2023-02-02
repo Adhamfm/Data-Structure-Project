@@ -83,9 +83,7 @@ void prettify(string input_file, string output_file){
 
 			  					}
 
-			  					if(num==2){
-			  						tabs_num--;
-			  					}
+			  					
 
 			  						if (line[0] == '<' && line[1] != '/' ){
 
@@ -127,6 +125,9 @@ void prettify(string input_file, string output_file){
 
 			  									write_file <<line << endl;
 			  						}
+			  if(num==2){
+			  						tabs_num--;
+			  					}
 		  }
 
 			  							//forming the close tag name
