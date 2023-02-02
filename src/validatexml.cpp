@@ -55,9 +55,11 @@ void copyFile(string sourceFileName, string destinationFileName) {
 //multi-errror iteration
 void validatexml::intergration(string input , string output) {
 	check_xml(input);
+	if (file_status){
 	correct_xml(input, output);
 	cout << file_status << endl;
 	copyFile(output , input);
+	}
 }
 
 
