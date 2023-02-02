@@ -16,8 +16,8 @@ using namespace std;
 
 #define missing_close 0
 #define missing_open  1
-#define Error_found	  0
-#define No_Error	  1
+#define Error_found	  1
+#define No_Error	  0
 
 
 
@@ -31,12 +31,12 @@ class validatexml {
 
 public:
 
-	int  line_number;
+	int line_number;
 	string  tag;
 	int  status;
 	fstream read_file;
 	ofstream write_file;
-	int file_status=Error_found;
+	int file_status = 1;
 
 	validatexml();
 
@@ -45,9 +45,7 @@ public:
 
 	void correct_xml(string input_file,string output_file);
 
-
-
-
+	void intergration(string input , string output);
 
 
 	virtual ~validatexml();
