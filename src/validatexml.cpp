@@ -195,7 +195,7 @@ void validatexml::  check_xml(string stringfile){
 
                     	//while(!buffer.empty()){
                     	 cout << "error in line: " << buffer.front()<< endl;
-                    	 buffer.pop();
+                    	 //buffer.pop();
                     	//}
                     	 cout<< "the tag is "<<closedtag_buffer.front()<<endl;
 
